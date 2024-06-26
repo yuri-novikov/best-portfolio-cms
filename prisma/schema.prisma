@@ -1,0 +1,48 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Case {
+  id          String        @id @default(uuid())
+  title       String
+  description String
+  imageUrl    String
+  order       Int
+  tags        TagsOnCases[]
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+
+model Tag {
+  id        String        @id @default(uuid())
+  title     String        @unique
+  cases     TagsOnCases[]
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+}
+
+model TagsOnCases {
+  tag    Tag    @relation(fields: [tagId], references: [id])
+  tagId  String
+  case   Case   @relation(fields: [caseId], references: [id])
+  caseId String
+
+  @@id([tagId, caseId])
+}
