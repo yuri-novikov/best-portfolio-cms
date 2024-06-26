@@ -40,7 +40,7 @@ export const DeleteTagButton = ({
       });
     } catch (e: any) {
       toast({
-        title: "Error occurred. Tag not saved.",
+        title: "Error occurred. Tag not deleted.",
         description: e?.message,
         status: "error",
       });
