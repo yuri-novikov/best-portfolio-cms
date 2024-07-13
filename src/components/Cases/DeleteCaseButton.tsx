@@ -1,6 +1,5 @@
 "use client";
 
-import { DeleteIcon } from "@chakra-ui/icons";
 import {
   AlertDialog,
   AlertDialogBody,
@@ -15,12 +14,12 @@ import {
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 
-export const DeleteTagButton = ({
-  deleteTag,
+export const DeleteCaseButton = ({
+  deleteCase,
   id,
   title,
 }: {
-  deleteTag: (id: string) => Promise<void>;
+  deleteCase: (id: string) => Promise<void>;
   id: string;
   title: string;
 }) => {
@@ -33,17 +32,17 @@ export const DeleteTagButton = ({
   const onDelete = async () => {
     setIsLoading(true);
     try {
-      await deleteTag(id);
+      await deleteCase(id);
       onClose();
       router.refresh();
       toast({
-        title: "Tag deleted.",
+        title: "Case deleted.",
         status: "success",
       });
       setIsLoading(false);
     } catch (e: any) {
       toast({
-        title: "Error occurred. Tag not deleted.",
+        title: "Error occurred. Case not deleted.",
         description: e?.message,
         status: "error",
       });
@@ -55,9 +54,8 @@ export const DeleteTagButton = ({
     <>
       <Button
         variant={"outline"}
-        aria-label="Delete Tag"
+        aria-label="Delete Case"
         colorScheme="red"
-        leftIcon={<DeleteIcon />}
         onClick={onOpen}
       >
         Delete
@@ -71,7 +69,7 @@ export const DeleteTagButton = ({
         <AlertDialogOverlay>
           <AlertDialogContent>
             <AlertDialogHeader fontSize="lg" fontWeight="bold">
-              Delete tag &quot;{title}&quot;
+              Delete case &quot;{title}&quot;
             </AlertDialogHeader>
 
             <AlertDialogBody>
@@ -82,7 +80,12 @@ export const DeleteTagButton = ({
               <Button ref={cancelRef} onClick={onClose}>
                 Cancel
               </Button>
-              <Button colorScheme="red" onClick={onDelete} ml={3}>
+              <Button
+                colorScheme="red"
+                onClick={onDelete}
+                ml={3}
+                isLoading={isLoading}
+              >
                 Delete
               </Button>
             </AlertDialogFooter>

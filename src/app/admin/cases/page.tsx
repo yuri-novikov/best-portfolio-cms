@@ -1,6 +1,10 @@
 import prisma from "@/db";
+import { deleteCase } from "@/src/actions/case";
+import { DeleteCaseButton } from "@/src/components/Cases/DeleteCaseButton";
+import { EditIcon } from "@chakra-ui/icons";
 import {
   Box,
+  Button,
   Flex,
   Grid,
   GridItem,
@@ -28,7 +32,7 @@ export default async function Cases() {
         <Heading>Cases</Heading>
         <Box ml="auto">
           <Link as={NextLink} href="/admin/cases/new">
-            <Box>Add Case</Box>
+            <Button as="a">Add Case</Button>
           </Link>
         </Box>
       </Flex>
@@ -64,10 +68,24 @@ export default async function Cases() {
               </GridItem>
               <GridItem>{caseData._count.features} feature(s)</GridItem>
               <GridItem>
-                <Link as={NextLink} href={`/admin/cases/${caseData.id}`}>
-                  Edit
-                </Link>
-                {/* TODO Delete */}
+                <VStack alignItems="justify">
+                  <Link
+                    w={"100%"}
+                    textAlign={"center"}
+                    py={1}
+                    border={"1px"}
+                    borderRadius="md"
+                    as={NextLink}
+                    href={`/admin/cases/${caseData.id}`}
+                  >
+                    Edit
+                  </Link>
+                  <DeleteCaseButton
+                    deleteCase={deleteCase}
+                    id={caseData.id}
+                    title={caseData.title}
+                  />
+                </VStack>
               </GridItem>
             </>
           ))}

@@ -94,4 +94,9 @@ async function updateCase(data: FormData) {
   }
 }
 
-export { createCase, updateCase };
+async function deleteCase(id: string) {
+  "use server";
+  await prisma.case.delete({ where: { id } });
+}
+
+export { createCase, updateCase, deleteCase };
