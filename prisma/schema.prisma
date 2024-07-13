@@ -25,6 +25,7 @@ model Case {
   description String
   imageUrl    String
   order       Int
+  features    Feature[]
   tags        TagsOnCases[]
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @updatedAt
@@ -45,4 +46,15 @@ model TagsOnCases {
   caseId String
 
   @@id([tagId, caseId])
+}
+
+model Feature {
+  id        String   @id @default(uuid())
+  case      Case     @relation(fields: [caseId], references: [id])
+  caseId    String
+  order     Int
+  type      String
+  data      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

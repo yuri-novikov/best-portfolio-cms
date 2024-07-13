@@ -23,4 +23,4 @@ async function deleteTag(id: string) {
   await prisma.tag.delete({ where: { id } });
 }
 
-export { createTag, editTag, deleteTag };
+export { createTag, deleteTag, editTag };

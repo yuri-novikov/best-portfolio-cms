@@ -7,7 +7,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <Container maxW="container.lg">
+    <Container maxW="container.lg" mb={16}>
       <HStack py={2}>
         <Flex gap={2}>
           <NavLink href="/admin">Dashboard</NavLink>
