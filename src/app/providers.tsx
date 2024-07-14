@@ -11,6 +11,10 @@ const theme = extendTheme({
       body: {
         bg: "orange.50",
         color: "gray.700",
+        height: "100%",
+      },
+      html: {
+        height: "100%",
       },
     }),
   },

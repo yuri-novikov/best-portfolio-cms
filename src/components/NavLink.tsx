@@ -12,6 +12,8 @@ export const NavLink = ({
   href: string;
 }) => {
   const pathname = usePathname();
+  const isActive =
+    pathname === href || (pathname.startsWith(href) && href !== "/admin");
 
   return (
     <Link
@@ -23,7 +25,7 @@ export const NavLink = ({
       letterSpacing={1.25}
       borderRadius={24}
       textTransform={"uppercase"}
-      bg={pathname === href ? "blue.100" : "transparent"}
+      bg={isActive ? "blue.100" : "transparent"}
       _hover={{
         textDecoration: "none",
         bg: "blue.200",
