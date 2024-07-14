@@ -19,8 +19,21 @@ export default async function Case({ params: { id } }: Props) {
           order: "asc",
         },
       },
+      tags: true,
     },
   });
 
-  return <EditCase initailData={singleCase} updateCase={updateCase} />;
+  const existingTags = await prisma.tag.findMany();
+  const tagsOptions = existingTags.map((tag) => ({
+    id: tag.id,
+    title: tag.title,
+  }));
+
+  return (
+    <EditCase
+      initailData={singleCase}
+      updateCase={updateCase}
+      tagsOptions={tagsOptions}
+    />
+  );
 }

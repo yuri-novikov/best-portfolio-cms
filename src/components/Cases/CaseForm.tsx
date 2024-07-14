@@ -8,13 +8,15 @@ import {
   FormHelperText,
   FormLabel,
 } from "@chakra-ui/react";
-import { Case, Feature } from "@prisma/client";
+import { Case, Feature, Tag } from "@prisma/client";
 import NextLink from "next/link";
 import { FeaturesList } from "../Features/FeaturesList";
+import { TagList } from "../Tags/TagList";
 
 export type CaseItem = Omit<Case, "id" | "createdAt" | "updatedAt"> & {
   id?: string;
   features: Omit<Feature, "createdAt" | "updatedAt">[];
+  tags: Omit<Tag, "createdAt" | "updatedAt">[];
 };
 
 export type TagOptions = {
@@ -25,9 +27,10 @@ export type TagOptions = {
 type Props = {
   handleSubmit: (data: FormData) => Promise<void>;
   initialData: CaseItem | null;
+  tagsOptions: TagOptions[];
 };
 
-export const CaseForm = ({ initialData, handleSubmit }: Props) => {
+export const CaseForm = ({ initialData, handleSubmit, tagsOptions }: Props) => {
   if (!initialData) {
     return null;
   }
@@ -57,9 +60,9 @@ export const CaseForm = ({ initialData, handleSubmit }: Props) => {
           <Input name="order" defaultValue={initialData.order} />
         </FormControl>
 
-        <FeaturesList features={initialData.features} />
+        <TagList tags={initialData.tags} tagsOptions={tagsOptions} />
 
-        {/* TODO Add tags */}
+        <FeaturesList features={initialData.features} />
 
         <HStack gap={4} justifyContent={"flex-end"} w="100%">
           <Link href="/admin/cases" as={NextLink}>

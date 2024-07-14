@@ -15,6 +15,7 @@ async function createCase(data: FormData) {
   const imageUrl = getStringValue(data, "imageUrl");
   const order = getIntValue(data, "order");
   const features = getArrayValues(data, "features", featureValidator);
+  const tags = data.getAll("tags");
 
   const mappedFeatures = features.map((feature: FeatureItem) => ({
     type: feature.type,
@@ -31,6 +32,9 @@ async function createCase(data: FormData) {
       features: {
         create: mappedFeatures,
       },
+      tags: {
+        connect: tags.map((tag) => ({ id: tag as string })),
+      },
     },
   });
 }
@@ -44,6 +48,7 @@ async function updateCase(data: FormData) {
   const imageUrl = getStringValue(data, "imageUrl");
   const order = getIntValue(data, "order");
   const features = getArrayValues(data, "features", featureValidator);
+  const tags = data.getAll("tags");
 
   const mappedFeatures = features.map((feature: FeatureItem) => ({
     id: feature.id,
@@ -69,6 +74,9 @@ async function updateCase(data: FormData) {
             delete feature.id;
             return feature;
           }),
+      },
+      tags: {
+        set: tags.map((tag) => ({ id: tag as string })),
       },
     },
   });

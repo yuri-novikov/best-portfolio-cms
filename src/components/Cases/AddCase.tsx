@@ -6,9 +6,10 @@ import { CaseForm, TagOptions } from "./CaseForm";
 
 type Props = {
   createCase: (data: FormData) => Promise<void>;
+  tagsOptions: TagOptions[];
 };
 
-export const AddCase = ({ createCase }: Props) => {
+export const AddCase = ({ createCase, tagsOptions }: Props) => {
   const router = useRouter();
   const toast = useToast();
 
@@ -33,12 +34,14 @@ export const AddCase = ({ createCase }: Props) => {
   return (
     <CaseForm
       handleSubmit={handleSubmit}
+      tagsOptions={tagsOptions}
       initialData={{
         title: "",
         description: "",
         imageUrl: "",
         order: 0,
         features: [],
+        tags: [],
       }}
     />
   );

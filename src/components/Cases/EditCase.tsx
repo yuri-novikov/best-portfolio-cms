@@ -7,9 +7,10 @@ import { CaseForm, CaseItem, TagOptions } from "./CaseForm";
 type Props = {
   initailData: CaseItem | null;
   updateCase: (data: FormData) => Promise<void>;
+  tagsOptions: TagOptions[];
 };
 
-export const EditCase = ({ updateCase, initailData }: Props) => {
+export const EditCase = ({ updateCase, initailData, tagsOptions }: Props) => {
   const router = useRouter();
   const toast = useToast();
 
@@ -31,5 +32,11 @@ export const EditCase = ({ updateCase, initailData }: Props) => {
     }
   };
 
-  return <CaseForm handleSubmit={handleSubmit} initialData={initailData} />;
+  return (
+    <CaseForm
+      handleSubmit={handleSubmit}
+      initialData={initailData}
+      tagsOptions={tagsOptions}
+    />
+  );
 };

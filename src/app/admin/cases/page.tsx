@@ -1,7 +1,6 @@
 import prisma from "@/db";
 import { deleteCase } from "@/src/actions/case";
 import { DeleteCaseButton } from "@/src/components/Cases/DeleteCaseButton";
-import { EditIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
@@ -24,6 +23,9 @@ export default async function Cases() {
         select: { features: true },
       },
     },
+    orderBy: {
+      order: "asc",
+    },
   });
 
   return (
@@ -31,9 +33,9 @@ export default async function Cases() {
       <Flex mb={4}>
         <Heading>Cases</Heading>
         <Box ml="auto">
-          <Link as={NextLink} href="/admin/cases/new">
-            <Button as="a">Add Case</Button>
-          </Link>
+          <Button as={NextLink} href="/admin/cases/new">
+            Add Case
+          </Button>
         </Box>
       </Flex>
 
@@ -69,17 +71,13 @@ export default async function Cases() {
               <GridItem>{caseData._count.features} feature(s)</GridItem>
               <GridItem>
                 <VStack alignItems="justify">
-                  <Link
-                    w={"100%"}
-                    textAlign={"center"}
-                    py={1}
-                    border={"1px"}
-                    borderRadius="md"
+                  <Button
+                    variant={"outline"}
                     as={NextLink}
                     href={`/admin/cases/${caseData.id}`}
                   >
                     Edit
-                  </Link>
+                  </Button>
                   <DeleteCaseButton
                     deleteCase={deleteCase}
                     id={caseData.id}
