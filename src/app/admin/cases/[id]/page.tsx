@@ -1,6 +1,8 @@
 import prisma from "@/db";
 import { updateCase } from "@/src/actions/case";
+import { TagOptions } from "@/src/components/Cases/CaseForm";
 import { EditCase } from "@/src/components/Cases/EditCase";
+import { Tag } from "@prisma/client";
 
 type Props = {
   params: {
@@ -24,7 +26,7 @@ export default async function Case({ params: { id } }: Props) {
   });
 
   const existingTags = await prisma.tag.findMany();
-  const tagsOptions = existingTags.map((tag) => ({
+  const tagsOptions = existingTags.map((tag: Tag) => ({
     id: tag.id,
     title: tag.title,
   }));
