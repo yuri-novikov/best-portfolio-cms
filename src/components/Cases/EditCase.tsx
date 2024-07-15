@@ -22,7 +22,6 @@ export const EditCase = ({ updateCase, initailData, tagsOptions }: Props) => {
         status: "success",
       });
       router.push("/admin/cases");
-      router.refresh();
     } catch (e: any) {
       toast({
         title: "Error occurred. Case not updated.",

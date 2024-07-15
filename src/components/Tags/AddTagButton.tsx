@@ -13,7 +13,6 @@ import {
   Input,
   useToast,
 } from "@chakra-ui/react";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 type Props = {
@@ -21,7 +20,7 @@ type Props = {
 };
 
 export default function AddTagButton({ createTag }: Props) {
-  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const toast = useToast();
 
@@ -29,20 +28,22 @@ export default function AddTagButton({ createTag }: Props) {
   const onOpen = () => setIsOpen(true);
 
   const handleSubmit = async (data: FormData) => {
+    setIsLoading(true);
     try {
       await createTag(data);
       onClose();
-      router.refresh();
       toast({
         title: "Tag saved.",
         status: "success",
       });
+      setIsLoading(false);
     } catch (e: any) {
       toast({
         title: "Error occurred. Tag not saved.",
         description: e?.message,
         status: "error",
       });
+      setIsLoading(false);
     }
   };
   return (
@@ -66,7 +67,7 @@ export default function AddTagButton({ createTag }: Props) {
               <Button variant="outline" mr={3} onClick={onClose}>
                 Cancel
               </Button>
-              <Button type="submit" colorScheme="blue">
+              <Button type="submit" colorScheme="blue" isLoading={isLoading}>
                 Save
               </Button>
             </DrawerFooter>

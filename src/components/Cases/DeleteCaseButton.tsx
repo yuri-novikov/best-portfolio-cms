@@ -34,7 +34,6 @@ export const DeleteCaseButton = ({
     try {
       await deleteCase(id);
       onClose();
-      router.refresh();
       toast({
         title: "Case deleted.",
         status: "success",

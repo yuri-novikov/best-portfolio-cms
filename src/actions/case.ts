@@ -6,6 +6,7 @@ import {
   getFeatureData,
 } from "./utils";
 import { FeatureItem, featureValidator } from "./validators";
+import { revalidatePath } from "next/cache";
 
 async function createCase(data: FormData) {
   "use server";
@@ -100,11 +101,16 @@ async function updateCase(data: FormData) {
   if (queries.length > 0) {
     await prisma.$transaction(queries);
   }
+
+  revalidatePath("/admin/cases");
+  revalidatePath("/admin/cases/" + id);
 }
 
 async function deleteCase(id: string) {
   "use server";
   await prisma.case.delete({ where: { id } });
+
+  revalidatePath("/admin/cases");
 }
 
 export { createCase, updateCase, deleteCase };

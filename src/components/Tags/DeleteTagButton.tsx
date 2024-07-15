@@ -12,7 +12,6 @@ import {
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
-import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 
 export const DeleteTagButton = ({
@@ -27,7 +26,6 @@ export const DeleteTagButton = ({
   const [isLoading, setIsLoading] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef(null);
-  const router = useRouter();
   const toast = useToast();
 
   const onDelete = async () => {
@@ -35,7 +33,6 @@ export const DeleteTagButton = ({
     try {
       await deleteTag(id);
       onClose();
-      router.refresh();
       toast({
         title: "Tag deleted.",
         status: "success",
@@ -82,7 +79,12 @@ export const DeleteTagButton = ({
               <Button ref={cancelRef} onClick={onClose}>
                 Cancel
               </Button>
-              <Button colorScheme="red" onClick={onDelete} ml={3}>
+              <Button
+                colorScheme="red"
+                onClick={onDelete}
+                ml={3}
+                isLoading={isLoading}
+              >
                 Delete
               </Button>
             </AlertDialogFooter>

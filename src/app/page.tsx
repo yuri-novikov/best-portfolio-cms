@@ -3,11 +3,9 @@ import {
   Box,
   Container,
   Divider,
-  HStack,
   Skeleton,
   SkeletonCircle,
   Stack,
-  VStack,
 } from "@chakra-ui/react";
 import { Portfolio } from "../components/Portfolio/Portfolio";
 

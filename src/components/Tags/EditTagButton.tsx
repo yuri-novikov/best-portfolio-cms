@@ -13,7 +13,6 @@ import {
   Input,
   useToast,
 } from "@chakra-ui/react";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 type Props = {
@@ -23,7 +22,6 @@ type Props = {
 };
 
 export default function EditTagButton({ title, id, editTag }: Props) {
-  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const toast = useToast();
 
@@ -34,7 +32,6 @@ export default function EditTagButton({ title, id, editTag }: Props) {
     try {
       await editTag(data);
       onClose();
-      router.refresh();
       toast({
         title: "Tag saved.",
         status: "success",
