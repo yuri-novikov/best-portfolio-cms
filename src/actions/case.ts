@@ -40,6 +40,7 @@ async function createCase(data: FormData) {
   });
 
   revalidatePath("/admin/cases");
+  revalidatePath("/");
 }
 
 async function updateCase(data: FormData) {
@@ -106,6 +107,7 @@ async function updateCase(data: FormData) {
 
   revalidatePath("/admin/cases");
   revalidatePath("/admin/cases/" + id);
+  revalidatePath("/");
 }
 
 async function deleteCase(id: string) {
@@ -113,6 +115,7 @@ async function deleteCase(id: string) {
   await prisma.case.delete({ where: { id } });
 
   revalidatePath("/admin/cases");
+  revalidatePath("/");
 }
 
 export { createCase, updateCase, deleteCase };
