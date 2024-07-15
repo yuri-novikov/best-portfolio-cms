@@ -38,6 +38,8 @@ async function createCase(data: FormData) {
       },
     },
   });
+
+  revalidatePath("/admin/cases");
 }
 
 async function updateCase(data: FormData) {
