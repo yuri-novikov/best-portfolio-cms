@@ -11,7 +11,6 @@ import {
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
-import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 
 export const DeleteCaseButton = ({
@@ -26,7 +25,6 @@ export const DeleteCaseButton = ({
   const [isLoading, setIsLoading] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef(null);
-  const router = useRouter();
   const toast = useToast();
 
   const onDelete = async () => {
